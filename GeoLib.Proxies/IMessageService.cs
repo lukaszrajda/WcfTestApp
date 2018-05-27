@@ -9,6 +9,6 @@ namespace GeoLib.Client.Contracts
     public interface IMessageService
     {
         [OperationContract]
-        void ShowMessage(string message);
+        void ShowMsg(string message);
     }
 }
