@@ -5,10 +5,10 @@ using System.ServiceModel;
 
 namespace GeoLib.Client.Contracts
 {
-    [ServiceContract(Namespace = "http://www.pluralsight.com/test")]
+    [ServiceContract]
     public interface IMessageService
     {
-        [OperationContract]
+        [OperationContract(Name = "ShowMessage")]
         void ShowMsg(string message);
     }
 }

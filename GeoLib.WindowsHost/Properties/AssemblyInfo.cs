@@ -55,5 +55,6 @@ using System.Windows;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: ContractNamespace("http://www.pluralsight.com/MiguelCastro/WcfEndToEnd",
-                              ClrNamespace = "GeoLib.WindowsHost.Contracts")]
+[assembly: ContractNamespace("http://www.pluralsight.com/test",
+    ClrNamespace = "GeoLib.WindowsHost.Contracts")]
+

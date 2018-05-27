@@ -36,3 +36,5 @@ using System.Runtime.Serialization;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
+[assembly: ContractNamespace("http://www.pluralsight.com/test",
+    ClrNamespace = "GeoLib.Client.Contracts")]

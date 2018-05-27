@@ -5,7 +5,7 @@ using System.ServiceModel;
 
 namespace GeoLib.WindowsHost.Contracts
 {
-    [ServiceContract(Namespace ="http://www.pluralsight.com/test")]
+    [ServiceContract]
     public interface IMessageService
     {
         [OperationContract]
