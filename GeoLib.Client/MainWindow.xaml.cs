@@ -56,7 +56,12 @@ namespace GeoLib.Client
 
         private void btnMakeCall_Click(object sender, RoutedEventArgs e)
         {
-            ChannelFactory<IMessageService> factory = new ChannelFactory<IMessageService>("");
+            Binding binding = new NetTcpBinding();
+            EndpointAddress address = new EndpointAddress("net.tcp://localhost:8010/MessageService");
+
+            //ChannelFactory<IMessageService> factory = new ChannelFactory<IMessageService>("");
+            ChannelFactory<IMessageService> factory = 
+                new ChannelFactory<IMessageService>(binding, address);
             IMessageService proxy = factory.CreateChannel();
             proxy.ShowMsg(txtMessage.Text);
             factory.Close();
