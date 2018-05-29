@@ -5,6 +5,7 @@
     <StackPanel Orientation="Vertical">
         <Button x:Name="btnStart" Content="Start Services" Margin="50,20,50,0" FontSize="18" Click="btnStart_Click" />
         <Button x:Name="btnStop" Content="Stop Services" Margin="50,20,50,20" FontSize="18" Click="btnStop_Click" />
-        <Label x:Name="lblMessage" Margin="50,20,50,0" HorizontalAlignment="Center" FontSize="18"></Label>
+        <Button x:Name="btnInProc" Content="In-Proc Service" Margin="50,20,50,0" HorizontalAlignment="Left" FontSize="18" Click="btnInProc_Click" />
+        <Label x:Name="lblMessage" Margin="50,20,50,0" HorizontalAlignment="Center" FontSize="18" RenderTransformOrigin="0.495,0.48" Height="84" Width="430"/>
     </StackPanel>
 </Window>

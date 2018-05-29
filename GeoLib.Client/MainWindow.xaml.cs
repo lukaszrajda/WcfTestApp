@@ -56,8 +56,8 @@ namespace GeoLib.Client
 
         private void btnMakeCall_Click(object sender, RoutedEventArgs e)
         {
-            Binding binding = new NetTcpBinding();
-            EndpointAddress address = new EndpointAddress("net.tcp://localhost:8010/MessageService");
+            Binding binding = new NetNamedPipeBinding();
+            EndpointAddress address = new EndpointAddress("net.pipe://localhost/MessageService");
 
             //ChannelFactory<IMessageService> factory = new ChannelFactory<IMessageService>("");
             ChannelFactory<IMessageService> factory = 
