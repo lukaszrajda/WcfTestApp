@@ -14,12 +14,14 @@ namespace GeoLib.Client
 {
     public partial class MainWindow : Window
     {
+        GeoClient _proxy = null;
         public MainWindow()
         {
             InitializeComponent();
 
             this.Title = "UI Running on Thread " + Thread.CurrentThread.ManagedThreadId +
                 " | Process " + Process.GetCurrentProcess().Id.ToString();
+            _proxy = new GeoClient();
         }
 
         private void btnGetInfo_Click(object sender, RoutedEventArgs e)
@@ -41,16 +43,17 @@ namespace GeoLib.Client
         {
             if (txtState.Text != null)
             {
-                EndpointAddress address = new EndpointAddress("net.tcp://localhost:8009/GeoService");
-                Binding binding = new NetTcpBinding();
-
-                GeoClient proxy = new GeoClient(binding, address);
-                IEnumerable<ZipCodeData> data = proxy.GetZips(txtState.Text);
+                //EndpointAddress address = new EndpointAddress("net.tcp://localhost:8009/GeoService");
+                //Binding binding = new NetTcpBinding();
+                //
+                //GeoClient proxy = new GeoClient(binding, address);
+                //GeoClient proxy = new GeoClient(binding, address);
+                IEnumerable<ZipCodeData> data = _proxy.GetZips(txtState.Text);
                 if (data != null)
                 {
                     lstZips.ItemsSource = data;
                 }
-                proxy.Close();
+                //proxy.Close();
             }
         }
 

@@ -11,6 +11,10 @@ namespace GeoLib.Proxies
 {
     public class GeoClient : ClientBase<IGeoService>, IGeoService
     {
+        public GeoClient()
+            : base()
+        { }
+
         public GeoClient(string endpointName)
             :base(endpointName)
         { }
