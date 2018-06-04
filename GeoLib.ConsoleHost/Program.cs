@@ -13,8 +13,19 @@ namespace GeoLib.ConsoleHost
     {
         static void Main(string[] args)
         {
-            ServiceHost hostGeoManager = new ServiceHost(typeof(GeoManager));
+            ServiceHost hostGeoManager = 
+                new ServiceHost(typeof(GeoManager),
+                new Uri("net.tcp://localhost:8009"));
+            ServiceMetadataBehavior behavior = hostGeoManager.Description.Behaviors.Find<ServiceMetadataBehavior>();
+            if (behavior == null)
+            {
+                behavior = new ServiceMetadataBehavior();s
+                hostGeoManager.Description.Behaviors.Add(behavior);
+            }
 
+            hostGeoManager.AddServiceEndpoint(typeof(IMetadataExchange),
+                MetadataExchangeBindings.CreateMexTcpBinding(),
+                "MEX");
             //ServiceDebugBehavior behavior = hostGeoManager.Description.Behaviors.Find<ServiceDebugBehavior>();
 
             //if (behavior == null)
