@@ -49,6 +49,7 @@ namespace GeoLib.Client
                 //GeoClient proxy = new GeoClient(binding, address);
                 //GeoClient proxy = new GeoClient(binding, address);
                 IEnumerable<ZipCodeData> data = _proxy.GetZips(txtState.Text);
+
                 if (data != null)
                 {
                     lstZips.ItemsSource = data;
