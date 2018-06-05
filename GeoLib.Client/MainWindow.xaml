@@ -6,8 +6,8 @@
         <Label Content="Zip Code:" Height="40" HorizontalAlignment="Left" Margin="53,42,0,0" Name="label1" VerticalAlignment="Top" FontSize="20" Width="103" />
         <TextBox Height="36" HorizontalAlignment="Left" Margin="156,46,0,0" Name="txtZipCode" VerticalAlignment="Top" Width="143" FontSize="20" />
         <Button Content="Get Info" Height="39" HorizontalAlignment="Left" Margin="156,103,0,0" x:Name="btnGetInfo" VerticalAlignment="Top" Width="100" Click="btnGetInfo_Click" FontSize="20" />
-        <Label Content="" Height="38" HorizontalAlignment="Left" Margin="156,157,0,0" Name="lblCity" VerticalAlignment="Top" Width="255" FontSize="20" />
-        <Label Content="" Height="35" HorizontalAlignment="Left" Margin="156,211,0,0" Name="lblState" VerticalAlignment="Top" Width="255" FontSize="20" />
+        <Label Content="" Height="38" HorizontalAlignment="Left" Margin="156,147,0,0" Name="lblCity" VerticalAlignment="Top" Width="255" FontSize="20" />
+        <Label Content="" Height="35" HorizontalAlignment="Left" Margin="156,190,0,0" Name="lblState" VerticalAlignment="Top" Width="255" FontSize="20" />
         <Label Content="State:" Height="40" HorizontalAlignment="Left" Margin="379,42,0,0" x:Name="label1_Copy" VerticalAlignment="Top" FontSize="20" Width="103" />
         <TextBox Height="36" HorizontalAlignment="Left" Margin="463,46,0,0" x:Name="txtState" VerticalAlignment="Top" Width="143" FontSize="20" />
         <Button Content="Get Zip Codes" Height="39" HorizontalAlignment="Left" Margin="463,103,0,0" x:Name="btnGetZipCodes" VerticalAlignment="Top" Width="143" Click="btnGetZipCodes_Click" FontSize="20" />
@@ -25,6 +25,10 @@
         <Label Content="Text to show:" Height="40" HorizontalAlignment="Left" Margin="53,340,0,0" x:Name="label1_Copy1" VerticalAlignment="Top" FontSize="20" Width="147" />
         <TextBox x:Name="txtMessage" HorizontalAlignment="Left" Height="32" Margin="65,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="359" FontSize="18"/>
         <Button Content="Make Call" Height="39" HorizontalAlignment="Left" Margin="311,422,0,0" x:Name="btnMakeCall" VerticalAlignment="Top" Width="100" Click="btnMakeCall_Click" FontSize="20" />
+        <Label Content="Range:" Height="40" HorizontalAlignment="Left" Margin="65,246,0,0" x:Name="label1_Copy2" VerticalAlignment="Top" FontSize="20" Width="103" />
+        <TextBox Height="36" HorizontalAlignment="Left" Margin="149,250,0,0" x:Name="txtRange" VerticalAlignment="Top" Width="143" FontSize="20" />
+        <Button Content="Get In Range" Height="39" HorizontalAlignment="Left" Margin="149,307,0,0" x:Name="btnGetInRange" VerticalAlignment="Top" Width="143" Click="btnGetInRange_Click" FontSize="20" />
+        <Button Content="Push" Height="36" HorizontalAlignment="Left" Margin="304,46,0,0" x:Name="btnPush" VerticalAlignment="Top" Width="70" Click="btnPush_Click" FontSize="20" />
     </Grid>
 
 </Window>

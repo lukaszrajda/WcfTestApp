@@ -8,7 +8,7 @@ using System.ServiceModel;
 
 namespace GeoLib.Services
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class GeoManager : IGeoService
     {
         public GeoManager()
@@ -33,11 +33,10 @@ namespace GeoLib.Services
 
         IZipCodeRepository _ZipCodeRepository = null;
         IStateRepository _StateRepository = null;
+        int _counter;
 
         public ZipCodeData GetZipInfo(string zip)
         {
-            //Thread.Sleep(10000);
-            throw new DivideByZeroException("you cannot do that");
             ZipCodeData zipCodeData = null;
 
             IZipCodeRepository zipCodeRepository = _ZipCodeRepository ?? new ZipCodeRepository();
@@ -52,7 +51,8 @@ namespace GeoLib.Services
                     ZipCode = zipCodeEntity.Zip
                 };
             }
-
+            _counter++;
+            Console.WriteLine($"Counter = {_counter}");
             return zipCodeData;
         }
 

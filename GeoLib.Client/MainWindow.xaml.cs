@@ -14,28 +14,28 @@ namespace GeoLib.Client
 {
     public partial class MainWindow : Window
     {
-        GeoClient _proxy = null;
+        StatefulGeoClient _proxy = null;
         public MainWindow()
         {
             InitializeComponent();
 
             this.Title = "UI Running on Thread " + Thread.CurrentThread.ManagedThreadId +
                 " | Process " + Process.GetCurrentProcess().Id.ToString();
-            _proxy = new GeoClient();
+            _proxy = new StatefulGeoClient();
         }
 
         private void btnGetInfo_Click(object sender, RoutedEventArgs e)
         {
             if (txtZipCode.Text != "")
             {
-                GeoClient proxy = new GeoClient("tcpEP");
-                ZipCodeData data = proxy.GetZipInfo(txtZipCode.Text);
+                //GeoClient proxy = new GeoClient("tcpEP");
+                ZipCodeData data = _proxy.GetZipInfo();
                 if (data != null)
                 {
                     lblCity.Content = data.City;
                     lblState.Content = data.State;
                 }
-                proxy.Close();
+                //proxy.Close();
             }
         }
 
@@ -48,13 +48,14 @@ namespace GeoLib.Client
                 //
                 //GeoClient proxy = new GeoClient(binding, address);
                 //GeoClient proxy = new GeoClient(binding, address);
-                IEnumerable<ZipCodeData> data = _proxy.GetZips(txtState.Text);
+                GeoClient proxy = new GeoClient("tcpEP");
+                IEnumerable<ZipCodeData> data = proxy.GetZips(txtState.Text);
 
                 if (data != null)
                 {
                     lstZips.ItemsSource = data;
                 }
-                //proxy.Close();
+                proxy.Close();
             }
         }
 
@@ -69,6 +70,27 @@ namespace GeoLib.Client
             IMessageService proxy = factory.CreateChannel();
             proxy.ShowMsg(txtMessage.Text);
             factory.Close();
+        }
+
+        private void btnPush_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtZipCode != null)
+            {
+                _proxy.PushZip(txtZipCode.Text);
+            }
+        }
+
+        private void btnGetInRange_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtZipCode.Text != "" && txtRange.Text != "")
+            {
+                IEnumerable<ZipCodeData> data = _proxy.GetZips(int.Parse(txtRange.Text));
+
+                if (data != null)
+                {
+                    lstZips.ItemsSource = data;
+                }
+            }
         }
     }
 }
