@@ -25,10 +25,6 @@ namespace GeoLib.Services
                     ZipCode = _zipCodeEntity.Zip
                 };
             }
-            else
-            {
-                throw new ApplicationException("oh ahh...");
-            }
             return zipCodeData;
             
         }
