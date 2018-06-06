@@ -5,10 +5,11 @@ using GeoLib.Contracts;
 using GeoLib.Data;
 using System.Threading;
 using System.ServiceModel;
+using System.Windows.Forms;
 
 namespace GeoLib.Services
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = false)]
     public class GeoManager : IGeoService
     {
         public GeoManager()
@@ -33,7 +34,7 @@ namespace GeoLib.Services
 
         IZipCodeRepository _ZipCodeRepository = null;
         IStateRepository _StateRepository = null;
-        int _counter;
+
 
         public ZipCodeData GetZipInfo(string zip)
         {
@@ -51,8 +52,10 @@ namespace GeoLib.Services
                     ZipCode = zipCodeEntity.Zip
                 };
             }
-            _counter++;
-            Console.WriteLine($"Counter = {_counter}");
+            else
+            {
+                throw new ApplicationException($"Zip code {zip} not found.");
+            }
             return zipCodeData;
         }
 

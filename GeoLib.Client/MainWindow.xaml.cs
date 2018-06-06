@@ -8,20 +8,24 @@ using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace GeoLib.Client
 {
     public partial class MainWindow : Window
     {
-        StatefulGeoClient _proxy = null;
+        GeoClient _proxy = null;
+        StatefulGeoClient _proxy2 = null;
         public MainWindow()
         {
             InitializeComponent();
 
             this.Title = "UI Running on Thread " + Thread.CurrentThread.ManagedThreadId +
                 " | Process " + Process.GetCurrentProcess().Id.ToString();
-            _proxy = new StatefulGeoClient();
+            _proxy = new GeoClient();
+            _proxy.Open();
+            _proxy2 = new StatefulGeoClient();
         }
 
         private void btnGetInfo_Click(object sender, RoutedEventArgs e)
@@ -29,11 +33,22 @@ namespace GeoLib.Client
             if (txtZipCode.Text != "")
             {
                 //GeoClient proxy = new GeoClient("tcpEP");
-                ZipCodeData data = _proxy.GetZipInfo();
-                if (data != null)
+                string zipCode = txtZipCode.Text;
+                try
                 {
-                    lblCity.Content = data.City;
-                    lblState.Content = data.State;
+                    ZipCodeData data = _proxy.GetZipInfo(zipCode);
+                    if (data != null)
+                    {
+                        lblCity.Content = data.City;
+                        lblState.Content = data.State;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Exception thrown by service.\n\rException type :" +
+                        $"{ex.GetType()}\n\r" +
+                        $"Message: {ex.Message}\n\r" +
+                        $"Proxy state: {_proxy.State}");
                 }
                 //proxy.Close();
             }
@@ -76,7 +91,7 @@ namespace GeoLib.Client
         {
             if (txtZipCode != null)
             {
-                _proxy.PushZip(txtZipCode.Text);
+                _proxy2.PushZip(txtZipCode.Text);
             }
         }
 
@@ -84,7 +99,7 @@ namespace GeoLib.Client
         {
             if (txtZipCode.Text != "" && txtRange.Text != "")
             {
-                IEnumerable<ZipCodeData> data = _proxy.GetZips(int.Parse(txtRange.Text));
+                IEnumerable<ZipCodeData> data = _proxy2.GetZips(int.Parse(txtRange.Text));
 
                 if (data != null)
                 {
