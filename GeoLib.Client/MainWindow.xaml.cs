@@ -50,10 +50,17 @@ namespace GeoLib.Client
                         $"Message: {ex.Detail.Message}\n\r" +
                         $"Proxy state: {_proxy.State}");
                 }
+                catch (FaultException ex)
+                {
+                    MessageBox.Show($"FaultException thrown by service.\n\rException type :" +
+                        $"{ex.GetType().Name}\n\r" +
+                        $"Message: {ex.Message}\n\r" +
+                        $"Proxy state: {_proxy.State}");
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Exception thrown by service.\n\rException type :" +
-                        $"{ex.GetType()}\n\r" +
+                        $"{ex.GetType().Name}\n\r" +
                         $"Message: {ex.Message}\n\r" +
                         $"Proxy state: {_proxy.State}");
                 }
