@@ -43,6 +43,13 @@ namespace GeoLib.Client
                         lblState.Content = data.State;
                     }
                 }
+                catch(FaultException<ExceptionDetail> ex)
+                {
+                    MessageBox.Show($"Exception thrown by service.\n\rException type :" +
+                        $"FaultException<ExceptionDetail>\n\r" +
+                        $"Message: {ex.Detail.Message}\n\r" +
+                        $"Proxy state: {_proxy.State}");
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Exception thrown by service.\n\rException type :" +
