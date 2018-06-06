@@ -10,6 +10,7 @@ namespace GeoLib.Contracts
     public interface IGeoService
     {
         [OperationContract]
+        [FaultContract(typeof(ApplicationException))]
         ZipCodeData GetZipInfo(string zip);
 
         [OperationContract]

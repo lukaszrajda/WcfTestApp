@@ -55,7 +55,9 @@ namespace GeoLib.Services
             else
             {
                 //throw new ApplicationException($"Zip code {zip} not found.");
-                throw new FaultException($"Zip code {zip} not found.");
+                //throw new FaultException($"Zip code {zip} not found.");
+                ApplicationException ex = new ApplicationException($"Zip code {zip} not found.");
+                throw new FaultException<ApplicationException>(ex, "Just another message");
             }
             return zipCodeData;
         }
