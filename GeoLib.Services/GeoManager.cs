@@ -9,7 +9,8 @@ using System.Windows.Forms;
 
 namespace GeoLib.Services
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true, 
+        ReleaseServiceInstanceOnTransactionComplete = false)]
     public class GeoManager : IGeoService
     {
         public GeoManager()
@@ -123,6 +124,48 @@ namespace GeoLib.Services
             }
 
             return zipCodeData;
+        }
+
+        [OperationBehavior(TransactionScopeRequired = true)]
+        public void UpdateZipCity(string zip, string city)
+        {
+            IZipCodeRepository repository = _ZipCodeRepository ?? new ZipCodeRepository();
+            ZipCode zipEntity = repository.GetByZip(zip);
+            if (zipEntity != null)
+            {
+                zipEntity.City = city;
+                repository.Update(zipEntity);
+            }
+        }
+
+        [OperationBehavior(TransactionScopeRequired = true, TransactionAutoComplete = false)]
+        public void UpdateZipCity(IEnumerable<ZipCityData> zipCityData)
+        {
+            IZipCodeRepository repository = _ZipCodeRepository ?? new ZipCodeRepository();
+
+            //Dictionary<string, string> cityBatch = new Dictionary<string, string>();
+            //foreach (var zipCity in zipCityData)
+            //{
+            //    cityBatch.Add(zipCity.ZipCode, zipCity.City);
+            //}
+            //repository.UpdateBatch(cityBatch);
+
+            int counter = 0;
+            foreach (var zipCityItem in zipCityData)
+            {
+                counter++;
+                if (counter == 2)
+                {
+                    throw new FaultException("Sorry you cannot do that.");
+                }
+                ZipCode zipEntity = repository.GetByZip(zipCityItem.ZipCode);
+                if (zipEntity != null)
+                {
+                    zipEntity.City = zipCityItem.City;
+                    repository.Update(zipEntity);
+                }
+            }
+            OperationContext.Current.SetTransactionComplete();
         }
     }
 }
